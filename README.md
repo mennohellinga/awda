@@ -14,19 +14,18 @@ This project aims to extract information on AWD's organisational structure from 
 This software has only been tested on x64 Linux. Use on other systems is not recommended.
 
 1. Make sure you have the following software installed:
-
-  * Python 3.8.0-1 or higher.
-  * Sqlite 3.30.1-1 or higher.
-  * TeXLive, a version from November 2019, or later.
-  * Standard Unix tools such as sh and Make.
+    * Python 3.8.0-1 or higher.
+    * Sqlite 3.30.1-1 or higher.
+    * TeXLive, a version from November 2019, or later.
+    * Standard Unix tools such as sh and Make.
 1. Clone the repository with `git clone https://github.com/mennohellinga/awda`
 1. Download the dataset via [IRONMARCH]
 1. Follow the instructions in `iron_march_201911/README` to generate a set of sqlite databases under `iron_march_201911/split_sqlite`
 1. Create a subdirectory in the cloned repository and call it `data` Copy the following files from `iron_march_201911/split_sqlite` into `awda/data`
-  * `core_members.db`
-  * `core_message_posts.db`
-  * `core_message_topics.db`
-  * `core_search_index.db`
+    * `core_members.db`
+    * `core_message_posts.db`
+    * `core_message_topics.db`
+    * `core_search_index.db`
 1. Navigate to the top level of the cloned repository and run `run_linux.sh`
 
 ## Output
