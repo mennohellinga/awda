@@ -49,9 +49,7 @@
 #   This program might not fail gracefully.
 ###############################################################################
 
-import os
 import re
-import shutil
 import sqlite3
 
 LaTeX_path_ns = './LaTeX'
@@ -203,14 +201,6 @@ def LaTeX_master_close():
     f = open(LaTeX_path+'master.tex', 'a')
     f.write('\\end{document}')
     f.close()
-
-
-# Make sure there is an empty ./LaTeX directory
-if os.path.isfile(LaTeX_path_ns):
-    os.remove(LaTeX_path_ns)
-elif os.path.exists(LaTeX_path_ns):
-    shutil.rmtree(LaTeX_path)
-os.mkdir(LaTeX_path)
 
 LaTeX_master_open()
 

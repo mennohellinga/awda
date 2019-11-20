@@ -47,13 +47,13 @@ The software will create `awda.pdf`, containing the following information:
 - [ ] create LaTeX header for stand-alone use of individual files
 - [ ] create LaTeX code to display threads
 - [ ] create Python code to retrieve threads
-- [ ] move OS interaction to the shell script
 
 ### Low priority
 
 ### Long term
 
 ### Completed
+- [x] move OS interaction to the shell script (2019-11-20)
 
 ## References
 
