@@ -9,7 +9,7 @@ On November 6, 2019 a torrent was released, containing the entire SQL database o
 
 This project aims to extract information on AWD's organisational structure from the Iron March database.
 
-## Getting the data and installing the program
+## Getting the data, installing and running the program
 
 This software has only been tested on x64 Linux. Use on other systems is not recommended.
 
@@ -32,7 +32,7 @@ This software has only been tested on x64 Linux. Use on other systems is not rec
 
 The software will create `awda.pdf`, containing the following information:
 
-2. Table Descriptions
+1. Table Descriptions
     1. Description of `core_members`
     1. Description of `core_message_posts`
     1. Description of `core_message_topics`
