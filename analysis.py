@@ -52,6 +52,8 @@
 import re
 import sqlite3
 
+import LT_strings
+
 LaTeX_path_ns = './LaTeX'
 LaTeX_path = LaTeX_path_ns+'/'
 
@@ -63,6 +65,26 @@ def sanitise_LaTeX(string):
 
     p = re.compile(r'([\\_$^{}])')
     return p.sub(r'\\\1', string)
+
+def has_cyr(text):
+    '''returns true if text contains cyrillic characters'''
+    
+    return bool(re.search('[\u0400-\u04FF]', text))
+
+def maybe_cyr(text):
+    '''
+        maybe_cyr(text)
+
+        Sanitise text for LaTeX output. If it contains cyrillic characters,
+        apply LT_strings.make_cyr to it.
+    '''
+
+    text = sanitise_LaTeX(text)
+
+    if has_cyr(text):
+        text = LT_strings.make_cyr(text)
+
+    return text
 
 def describetable_LaTeX(connection, name):
     '''
@@ -141,7 +163,7 @@ def list_of_users():
                                     FROM core_members
                                     WHERE member_id = '''+id+'''
                                     '''):
-            name = sanitise_LaTeX(member[0])
+            name = maybe_cyr(member[0])
             
             awd_posts = e.execute('''
                 SELECT COUNT(*)
@@ -172,26 +194,7 @@ def LaTeX_master_open():
     '''
 
     f = open(LaTeX_path+'master.tex', 'w+')
-    f.write(r'''\documentclass[a4paper, 10pt]{hitec}
-
-        \usepackage[british]{babel}
-        \usepackage{booktabs}
-        \usepackage{hyperref}
-        \usepackage{longtable}
-
-        \usepackage[utf8]{inputenc}
-        \usepackage[T2A]{fontenc}
-
-        \newcommand{\awd}{\textsc{awd}}
-
-        \title{GE3V17043 --- Soldiers, Guerrillas, Terrorists\\Data Analysis Report}
-        \author{Menno Hellinga}
-
-        \begin{document}
-
-        \maketitle
-        \tableofcontents
-    ''')
+    f.write(LT_strings.master_open)
 
 def LaTeX_master_close():
     '''
@@ -199,7 +202,7 @@ def LaTeX_master_close():
     '''
 
     f = open(LaTeX_path+'master.tex', 'a')
-    f.write('\\end{document}')
+    f.write(LT_strings.master_close)
     f.close()
 
 LaTeX_master_open()
