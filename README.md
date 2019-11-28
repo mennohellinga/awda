@@ -43,7 +43,6 @@ The software will create `awda.pdf`, containing the following information:
 ### High priority
 
 - [ ] separate data-gathering from table printing functionality
-- [ ] create LaTeX header for stand-alone use of individual files
 - [ ] create LaTeX code to display threads
 - [ ] create Python code to retrieve threads
 
@@ -52,8 +51,9 @@ The software will create `awda.pdf`, containing the following information:
 ### Long term
 
 ### Completed
-- [x] move OS interaction to the shell script (2019-11-20)
+- [x] create LaTeX header for stand-alone use of individual files (2019-11-28)
 - [x] define all fixed LaTeX strings in a separate file (2019-11-28)
+- [x] move OS interaction to the shell script (2019-11-20)
 
 ## References
 
