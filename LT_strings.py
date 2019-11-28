@@ -29,7 +29,7 @@ master_close = r'''\end{document}'''
 
 table_header = r'''% in order to use this table in your own document, place the following code in the preamble:
 %\usepackage[british]{babel}
-%\usepackage{booktabs,hyperref,longtable}
+%\usepackage{booktabs,hyperref,lmodern,longtable}
 %\usepackage[T1,T2A]{fontenc}
 
 '''
