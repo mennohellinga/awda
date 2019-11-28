@@ -34,7 +34,7 @@ table_header = r'''% in order to use this table in your own document, place the 
 
 '''
 
-def table_start (spec, names):
+def table_start(spec, names):
     '''
         LT_table_start (spec, names)
 
@@ -51,6 +51,7 @@ def table_start (spec, names):
         if i != len(names) - 1:
             result = result + '&'
     result = result + r'''\\
+    \endhead
     '''
     
     return result
@@ -59,7 +60,7 @@ table_end = r'''\bottomrule
 \end{longtable}
 '''
 
-def make_cyr (text):
+def make_cyr(text):
     '''sets text to T2A encoding'''
     
     return r'''\fontencoding{T2A}\selectfont '''+text+r'''\fontencoding{T1}\selectfont'''
