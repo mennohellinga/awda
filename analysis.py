@@ -49,6 +49,7 @@
 #   This program might not fail gracefully.
 ###############################################################################
 
+import datetime
 import sqlite3
 
 import LT
@@ -73,8 +74,6 @@ def describetable_LT(connection, name):
         table = table + [[repr(t[0]),LT.safe(t[1]),LT.safe(t[2])]]
 
     LT.print_table(name, LT.safe(name)+" — Table Description", r'''Created with describetable\_LT(\emph{<connection>}, '''+LT.safe(name)+")", "cll", ["ID", "name", "type"], table)
-
-import datetime
 
 def list_of_users():
     '''
