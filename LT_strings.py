@@ -60,8 +60,3 @@ def table_start(spec, names):
 table_end = r'''\bottomrule
 \end{longtable}
 '''
-
-def make_cyr(text):
-    '''sets text to T2A encoding'''
-    
-    return r'''\fontencoding{T2A}\selectfont '''+text+r'''\fontencoding{T1}\selectfont'''

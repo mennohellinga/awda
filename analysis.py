@@ -49,40 +49,10 @@
 #   This program might not fail gracefully.
 ###############################################################################
 
-import re
 import sqlite3
 
 import LT
 import LT_strings
-
-def sanitise_LT(string):
-    '''
-        Escape all LaTeX control characters in the argument string with
-        backslashes, so as to form plain LaTeX text.
-    '''
-
-    p = re.compile(r'([\\_$^{}])')
-    return p.sub(r'\\\1', string)
-
-def has_cyr(text):
-    '''returns true if text contains cyrillic characters'''
-    
-    return bool(re.search('[\u0400-\u04FF]', text))
-
-def maybe_cyr(text):
-    '''
-        maybe_cyr(text)
-
-        Sanitise text for LaTeX output. If it contains cyrillic characters,
-        apply LT_strings.make_cyr to it.
-    '''
-
-    text = sanitise_LT(text)
-
-    if has_cyr(text):
-        text = LT_strings.make_cyr(text)
-
-    return text
 
 def describetable_LT(connection, name):
     '''
@@ -100,9 +70,9 @@ def describetable_LT(connection, name):
 
     c = connection.cursor()
     for t in c.execute('''pragma table_info('''+name+''')'''):
-        table = table + [[repr(t[0]),maybe_cyr(t[1]),maybe_cyr(t[2])]]
+        table = table + [[repr(t[0]),LT.safe(t[1]),LT.safe(t[2])]]
 
-    LT.print_table(name, sanitise_LT(name)+" — Table Description", r'''Created with describetable\_LT(\emph{<connection>}, '''+sanitise_LT(name)+")", "cll", ["ID", "name", "type"], table)
+    LT.print_table(name, LT.safe(name)+" — Table Description", r'''Created with describetable\_LT(\emph{<connection>}, '''+LT.safe(name)+")", "cll", ["ID", "name", "type"], table)
 
 import datetime
 
@@ -144,7 +114,7 @@ def list_of_users():
                                     FROM core_members
                                     WHERE member_id = '''+id+'''
                                     '''):
-            name = maybe_cyr(member[0])
+            name = LT.safe(member[0])
             
             awd_posts = e.execute('''
                 SELECT COUNT(*)
