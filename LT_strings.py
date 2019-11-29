@@ -12,7 +12,7 @@ master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 
 \usepackage[british]{babel}
 \usepackage{booktabs,hyperref,lmodern,longtable}
-\usepackage[T1,T2A]{fontenc}
+\usepackage[T2A,T1]{fontenc}
 
 \newcommand{\awd}{\textsc{awd}}
 
@@ -20,6 +20,9 @@ master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 \author{Menno Hellinga}
 
 \begin{document}
+
+\fontencoding{T1}\selectfont
+
 \maketitle
 \tableofcontents
 
@@ -32,6 +35,8 @@ table_header = r'''% in order to use this table in your own document, place the 
 %\usepackage{booktabs,hyperref,lmodern,longtable}
 %\usepackage[T1,T2A]{fontenc}
 % and compile with pdflatex
+
+\fontencoding{T1}\selectfont
 
 '''
 
@@ -52,6 +57,7 @@ def table_start(spec, names):
         if i != len(names) - 1:
             result = result + '&'
     result = result + r'''\\
+    \midrule
     \endhead
     '''
     
