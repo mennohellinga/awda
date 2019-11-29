@@ -31,6 +31,7 @@ table_header = r'''% in order to use this table in your own document, place the 
 %\usepackage[british]{babel}
 %\usepackage{booktabs,hyperref,lmodern,longtable}
 %\usepackage[T1,T2A]{fontenc}
+% and compile with pdflatex
 
 '''
 
