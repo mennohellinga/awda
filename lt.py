@@ -26,7 +26,7 @@ def safe_enc (string):
 
 def safe (string):
     '''
-        escapes all special LaTeX-character in <string>, and then return
+        escapes all special LaTeX-character in <string>, and then returns
         safe_enc(string)
     '''
 
@@ -55,9 +55,9 @@ def print_table (filename, name, description, colspec, header, table):
         print_table(filename, name, description, header, table)
 
         Prints a table with \section <name>, text <description>, header
-        <header> and contents <table> to path+<filename>.
+        <header> and contents <table> to path+<filename>+".tex".
 
-        All input strings except filename must consist of properly sanitised
+        All input strings except <filename> must consist of properly sanitised
         and charset-safe LaTeX code.
     '''
 

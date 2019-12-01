@@ -42,15 +42,19 @@ The software will create `awda.pdf`, containing the following information:
 
 ### High priority
 
-- [ ] separate data-gathering from table printing functionality
 - [ ] create LaTeX code to display threads
 - [ ] create Python code to retrieve threads
+- [ ] identify users who DM'ed about AWD
+- [ ] display AWD DM network
 
 ### Low priority
+
+- [ ] make histograms and scatterplots of AWD posts vs various other variables, such as join date, total posts
 
 ### Long term
 
 ### Completed
+- [x] separate data-gathering from table printing functionality (2019-12-01)
 - [x] create LaTeX header for stand-alone use of individual files (2019-11-28)
 - [x] define all fixed LaTeX strings in a separate file (2019-11-28)
 - [x] move OS interaction to the shell script (2019-11-20)

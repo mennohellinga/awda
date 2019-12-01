@@ -63,7 +63,7 @@ def describetable_lt(connection, name):
 
         Retrieves a list of columns from table <name>, in the database connected
         to <connection>. Prints a table containing each column's ID, name and
-        type in a LaTeX tabular environment at lt_path+<name>+'.tex'
+        type in a LaTeX longtab environment at lt.path+<name>+'.tex'
     '''
 
     table = []
@@ -144,6 +144,6 @@ for user in awd_users:
 
     awd_users_printable = awd_users_printable + [user]
 
-lt.print_table("awd_users", 'Users who posted about the AWD', "", "cllccc", awd_users_heading, awd_users_printable)
+lt.print_table("awd_posters", 'Users who posted about the AWD', "", "cllccc", awd_users_heading, awd_users_printable)
 
 lt.master_close()
