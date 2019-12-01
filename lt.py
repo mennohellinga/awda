@@ -30,7 +30,7 @@ def safe (string):
         safe_enc(string)
     '''
 
-    p = re.compile(r'([\\_$^{}])')
+    p = re.compile(r'([\\_$%^{}])')
     return safe_enc(p.sub(r'\\\1', string))
 
 def master_open():
