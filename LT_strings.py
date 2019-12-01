@@ -15,6 +15,7 @@ master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 \usepackage[T2A,T1]{fontenc}
 
 \newcommand{\awd}{\textsc{awd}}
+\renewcommand{\familydefault}{\sfdefault}
 
 \title{GE3V17043 — Soldiers, Guerrillas, Terrorists\\Data Analysis Report}
 \author{Menno Hellinga}
