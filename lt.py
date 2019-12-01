@@ -1,15 +1,15 @@
 #!/bin/python3
-# Module: LT.py
+# Module: lt.py
 
 ################################################################################
-# LT.py
+# lt.py
 #
 # contains all functions that write LaTeX output to files
 ################################################################################
 
 import re
 
-import LT_strings
+import lt_strings
 
 path_ns = './LaTeX'
 path = path_ns+'/'
@@ -39,7 +39,7 @@ def master_open():
     '''
 
     f = open(path+'master.tex', 'w+')
-    f.write(LT_strings.master_open)
+    f.write(lt_strings.master_open)
 
 def master_close():
     '''
@@ -47,7 +47,7 @@ def master_close():
     '''
 
     f = open(path+'master.tex', 'a')
-    f.write(LT_strings.master_close)
+    f.write(lt_strings.master_close)
     f.close()
 
 def print_table (filename, name, description, colspec, header, table):
@@ -63,10 +63,10 @@ def print_table (filename, name, description, colspec, header, table):
 
     f = open(path+filename+'.tex', "w")
 
-    f.write(LT_strings.table_header)
+    f.write(lt_strings.table_header)
     f.write(r'''\section{'''+name+'''}
         '''+description+'''
-        '''+LT_strings.table_start(colspec, header))
+        '''+lt_strings.table_start(colspec, header))
 
     for row in table:
         for i, item in enumerate(row):
@@ -76,7 +76,7 @@ def print_table (filename, name, description, colspec, header, table):
         f.write(r'''\\
                 ''')
 
-    f.write(LT_strings.table_end)
+    f.write(lt_strings.table_end)
 
     f.close()
 
