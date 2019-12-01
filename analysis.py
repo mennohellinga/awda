@@ -94,7 +94,7 @@ describetable_lt(conn, 'core_search_index')
 # have posted on the AWD.
 #
 
-awd_users_heading = [r'''member\_id''', "name", "joined", r'''\awd\ posts''', "total posts", r'''pct. \awd\ posts''']
+awd_users_heading = [r'''member\_id''', "name", "joined", r'''\awd\ posts''', "total posts", r'''\% \awd\ posts''']
 awd_users = []
 
 searchindex = sqlite3.connect("data/core_search_index.db").cursor()
@@ -144,7 +144,6 @@ for user in awd_users:
 
     awd_users_printable = awd_users_printable + [user]
 
-print(awd_users_printable)
 lt.print_table("awd_users", 'Users who posted about the AWD', "", "cllccc", awd_users_heading, awd_users_printable)
 
 lt.master_close()
