@@ -146,4 +146,36 @@ for user in awd_users:
 
 lt.print_table("awd_posters", 'Users who posted about the AWD', "", "cllccc", awd_users_heading, awd_users_printable)
 
+#
+# Next, we list all forum posts on the AWD, ordered by date
+#
+
+threadfile = lt.thread_open("awd_posts", 'Forum posts about the AWD')
+
+import re
+
+for post in searchindex.execute(    '''
+                                        SELECT index_date_created, index_author, index_date_created, index_content
+                                        FROM core_search_index
+                                        WHERE index_content LIKE "%atomwaffen%"
+                                        COLLATE NOCASE
+                                        ORDER BY index_date_created
+                                    '''):
+#    title = lt.safe(post[0][0])
+    date = datetime.datetime.utcfromtimestamp(post[2]).strftime('%Y/%m/%d')
+    content = lt.safe(post[3])
+
+    author = 'unknown author'
+    if post[1] != 0:
+        author = coremembers.execute(   '''
+                                            SELECT name
+                                            FROM core_members
+                                            WHERE member_id = '''+repr(post[1])+'''
+                                        ''').fetchall()[0][0]
+        author = lt.safe(author)
+
+    lt.thread_post(threadfile, 'title', author, date, content)
+
+lt.thread_close(threadfile)
+
 lt.master_close()

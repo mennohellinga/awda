@@ -42,8 +42,7 @@ The software will create `awda.pdf`, containing the following information:
 
 ### High priority
 
-- [ ] create LaTeX code to display threads
-- [ ] create Python code to retrieve threads
+- [ ] implement proper unicode support. We need to be able to display latin, cyrillic and arabic text.
 - [ ] identify users who DM'ed about AWD
 - [ ] display AWD DM network
 
@@ -54,6 +53,8 @@ The software will create `awda.pdf`, containing the following information:
 ### Long term
 
 ### Completed
+- [x] create LaTeX code to display threads (2019-12-02)
+- [x] create Python code to retrieve threads (2019-12-02)
 - [x] separate data-gathering from table printing functionality (2019-12-01)
 - [x] create LaTeX header for stand-alone use of individual files (2019-11-28)
 - [x] define all fixed LaTeX strings in a separate file (2019-11-28)

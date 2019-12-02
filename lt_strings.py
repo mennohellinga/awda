@@ -11,7 +11,7 @@
 master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 
 \usepackage[british]{babel}
-\usepackage{booktabs,hyperref,lmodern,longtable}
+\usepackage{booktabs,hyperref,lmodern,longtable,mdframed}
 \usepackage[T2A,T1]{fontenc}
 
 \newcommand{\awd}{\textsc{awd}}
@@ -40,6 +40,25 @@ table_header = r'''% in order to use this table in your own document, place the 
 \fontencoding{T1}\selectfont
 
 '''
+
+def thread_open(title):
+    '''
+        thread_open(title):
+
+        Takes a thread title, and creates a LaTeX header for it.
+    '''
+
+    return r'''% in order to use this thread in you own document, place the following code in the preamble:
+%\usepackage[british]{babel}
+%\usepackage{lmodern,mdframed}
+%\usepackage[T1,T2A]{fontenc}
+% and compile with pdflatex
+
+\fontencoding{T1}\selectfont
+
+        \section{'''+title+r'''}
+    
+    '''
 
 def table_start(spec, names):
     '''

@@ -17,7 +17,10 @@ path = path_ns+'/'
 def safe_enc (string):
     '''
         returns <string>, converted to a LaTeX string with valid character encoding
+        removes all instances of U200B
     '''
+
+    string = string.replace('\u200b', '')
 
     if bool(re.search('[\u0400-\u04ff]', string)):
         string = r'''\fontencoding{T2A}\selectfont '''+string+r'''\fontencoding{T1}\selectfont'''
@@ -30,8 +33,17 @@ def safe (string):
         safe_enc(string)
     '''
 
-    p = re.compile(r'([\\_$%^{}])')
-    return safe_enc(p.sub(r'\\\1', string))
+    p = re.compile(r'([\\_$%#&{}])')
+    string = p.sub(r'\\\1', string)
+
+    string = string.replace('^', r'\^{}')
+
+    # this line removes all arabic text. New top priority: unicode that works
+    string = re.sub('[\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff]', '', string)
+
+    string = safe_enc(string)
+
+    return string
 
 def master_open():
     '''
@@ -49,6 +61,46 @@ def master_close():
     f = open(path+'master.tex', 'a')
     f.write(lt_strings.master_close)
     f.close()
+
+def thread_open(filename, title):
+    '''
+        Writes the header for a thread, with title <title>, to
+        path+<filename>.tex and adds mention of the thread to the master doc
+
+        Returns the threadfile, for use with thread_post and thread_close
+    '''
+
+    threadfile = open(path+filename+".tex", "w+")
+    threadfile.write(lt_strings.thread_open(title))
+
+    f = open(path+'master.tex', 'a')
+    f.write('''
+                \include{'''+filename+'''}
+    ''')
+    f.close()
+
+    return threadfile
+
+def thread_post(threadfile, title, author, date, content):
+    '''
+        Writes a post to an already opened thread.
+    '''
+
+    threadfile.write(r'''\subsection*{'''+title+r'''}
+        \begin{mdframed}
+            \emph{written by '''+author+''' on '''+date+'''}
+
+            '''+content+r'''
+        \end{mdframed}
+
+    ''')
+
+def thread_close(threadfile):
+    '''
+        Writes the footer for the current thread, and closes threadfile
+    '''
+
+    threadfile.close()
 
 def print_table (filename, name, description, colspec, header, table):
     r'''
