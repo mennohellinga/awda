@@ -22,6 +22,9 @@ def safe_enc (string):
 
     string = string.replace('\u200b', '')
 
+    # this line removes all arabic text. New top priority: unicode that works
+    string = re.sub('[\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff]', '', string)
+
     if bool(re.search('[\u0400-\u04ff]', string)):
         string = r'''\fontencoding{T2A}\selectfont '''+string+r'''\fontencoding{T1}\selectfont'''
 
@@ -37,9 +40,6 @@ def safe (string):
     string = p.sub(r'\\\1', string)
 
     string = string.replace('^', r'\^{}')
-
-    # this line removes all arabic text. New top priority: unicode that works
-    string = re.sub('[\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff]', '', string)
 
     string = safe_enc(string)
 
