@@ -11,18 +11,17 @@
 master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 
 \usepackage[british]{babel}
-\usepackage{booktabs,hyperref,lmodern,longtable,mdframed}
-\usepackage[T2A,T1]{fontenc}
+
+\usepackage{booktabs,fontspec,longtable,mdframed,arabxetex}
+
+\setmainfont{Linux Libertine O}
 
 \newcommand{\awd}{\textsc{awd}}
-\renewcommand{\familydefault}{\sfdefault}
 
 \title{GE3V17043 — Soldiers, Guerrillas, Terrorists\\Data Analysis Report}
 \author{Menno Hellinga}
 
 \begin{document}
-
-\fontencoding{T1}\selectfont
 
 \maketitle
 \tableofcontents
@@ -32,12 +31,9 @@ master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 master_close = r'''\end{document}'''
 
 table_header = r'''% in order to use this table in your own document, place the following code in the preamble:
-%\usepackage[british]{babel}
-%\usepackage{booktabs,hyperref,lmodern,longtable}
-%\usepackage[T1,T2A]{fontenc}
-% and compile with pdflatex
-
-\fontencoding{T1}\selectfont
+%\usepackage{booktabs,fontspec,longtable,arabtext}
+%\setmainfont{Linux Libertine O} % or another font with good unicode support
+% and compile with xelatex
 
 '''
 
@@ -49,12 +45,9 @@ def thread_open(title):
     '''
 
     return r'''% in order to use this thread in you own document, place the following code in the preamble:
-%\usepackage[british]{babel}
-%\usepackage{lmodern,mdframed}
-%\usepackage[T1,T2A]{fontenc}
-% and compile with pdflatex
-
-\fontencoding{T1}\selectfont
+%\usepackage{fontspec,mdframed,arabtext}
+%\setmainfont{Linux Libertine O} % or another font with good unicode support
+% and compile with xelatex
 
         \section{'''+title+r'''}
     

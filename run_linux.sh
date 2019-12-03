@@ -9,5 +9,5 @@ mkdir LaTeX
 
 python3 analysis.py
 cd LaTeX
-pdflatex master.tex
-pdflatex master.tex
+xelatex master.tex
+xelatex master.tex
