@@ -20,6 +20,9 @@ master_open = r'''\documentclass[a4paper, 10pt]{hitec}
 
 \title{GE3V17043 — Soldiers, Guerrillas, Terrorists\\Data Analysis Report}
 \author{Menno Hellinga}
+\confidential{github.com/mennohellinga/awda}
+
+\setcounter{tocdepth}{2}
 
 \begin{document}
 

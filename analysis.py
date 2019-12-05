@@ -155,13 +155,16 @@ threadfile = lt.thread_open("awd_posts", 'Forum posts about the AWD')
 import re
 
 for post in searchindex.execute(    '''
-                                        SELECT index_date_created, index_author, index_date_created, index_content
+                                        SELECT index_title, index_author, index_date_created, index_content
                                         FROM core_search_index
                                         WHERE index_content LIKE "%atomwaffen%"
                                         COLLATE NOCASE
                                         ORDER BY index_date_created
                                     '''):
-#    title = lt.safe(post[0][0])
+    title = 'untitled post'
+    if post[0] != None:
+        title = lt.safe(post[0])
+
     date = datetime.datetime.utcfromtimestamp(post[2]).strftime('%Y/%m/%d')
     content = lt.safe(post[3])
 
@@ -174,8 +177,67 @@ for post in searchindex.execute(    '''
                                         ''').fetchall()[0][0]
         author = lt.safe(author)
 
-    lt.thread_post(threadfile, 'title', author, date, content)
+    lt.thread_post(threadfile, title, author, date, content)
+
+lt.thread_close(threadfile)
+
+#
+# Now, we retrieve all the DM threads involving Odin
+#
+
+coremessagetopics = sqlite3.connect("data/core_message_topics.db").cursor()
+coremessages = sqlite3.connect("data/core_message_posts.db").cursor()
+
+odin_id = "7600"
+
+threadfile = lt.thread_open("odin_msg", "Odin's DM's")
+
+for topic in coremessagetopics.execute( '''
+                                            SELECT mt_id, mt_title, mt_starter_id, mt_to_member_id
+                                            FROM core_message_topics
+                                            WHERE mt_starter_id = '''+odin_id+'''
+                                            OR mt_to_member_id = '''+odin_id+'''
+                                            ORDER BY mt_start_time
+                                        '''):
+    mt_id = topic[0]
+    mt_title = topic[1]
+
+    other_id = topic[3]
+    other_name = "an unknown user"
+
+    if other_id != 0:
+        uname = coremembers.execute('SELECT name FROM core_members WHERE member_id = '+repr(other_id)).fetchall()
+        if uname:
+            other_name = lt.safe(uname[0][0])
+
+    starter_id = topic[2]
+    starter_name = "an unknown user"
+
+    if starter_id != 0:
+        uname = coremembers.execute('SELECT name FROM core_members WHERE member_id = '+repr(starter_id)).fetchall()
+        if uname:
+            starter_name = lt.safe(uname[0][0])
+
+    threadfile.write(r'\subsection*{'+lt.safe(mt_title)+"}\nMessages exchanged between "+starter_name+" and "+other_name+".\n")
+
+    for post in coremessages.execute(   '''
+                                            SELECT msg_post, msg_author_id, msg_date
+                                            FROM core_message_posts
+                                            WHERE msg_topic_id = '''+repr(mt_id)+'''
+                                            ORDER BY msg_date
+                                        '''):
+        content = lt.safe(post[0])
+        date = datetime.datetime.utcfromtimestamp(post[2]).strftime('%Y/%m/%d')
+
+        author = post[1]
+        if author == starter_id:
+            author = starter_name
+        else:
+            author = other_name
+
+        lt.thread_post(threadfile, "~", author, date, content)
 
 lt.thread_close(threadfile)
 
 lt.master_close()
+

@@ -87,7 +87,7 @@ def thread_post(threadfile, title, author, date, content):
         Writes a post to an already opened thread.
     '''
 
-    threadfile.write(r'''\subsection*{'''+title+r'''}
+    threadfile.write(r'''\subsubsection*{'''+title+r'''}
         \begin{mdframed}
             \emph{written by '''+author+''' on '''+date+'''}
 
