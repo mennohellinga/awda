@@ -37,7 +37,12 @@ def safe (string):
         safe_enc(string)
     '''
 
-    p = re.compile(r'([\\_$%#&{}])')
+    p = re.compile(r'&..;')
+    string = p.sub("", string)
+
+    string = string.replace('\\', "")
+
+    p = re.compile(r'([_$%#&{}])')
     string = p.sub(r'\\\1', string)
 
     string = string.replace('^', r'\^{}')
