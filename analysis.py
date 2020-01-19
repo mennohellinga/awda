@@ -275,4 +275,29 @@ for post in searchindex.execute(    '''
 
 lt.thread_close(threadfile)
 
+arthurs_id = "9304"
+
+threadfile = lt.thread_open("arthursposts", "All posts by Devon Arthurs")
+searchindex = sqlite3.connect("data/core_search_index.db").cursor()
+
+for post in searchindex.execute(    '''
+                                        SELECT index_title, index_content, index_date_created
+                                        FROM core_search_index
+                                        WHERE index_author = ''' + arthurs_id + '''
+                                        ORDER BY index_date_created
+                                    '''):
+    title = post[0]
+    content = lt.safe(post[1])
+    date = datetime.datetime.utcfromtimestamp(post[2]).strftime('%Y/%m/%d')
+
+    if title:
+        title = lt.safe(title)
+    else:
+        title = "untitled post"
+
+    lt.thread_post(threadfile, title, "TheWeissewolfe", date, lt.safe(content))
+
+lt.thread_close(threadfile)
+
+
 lt.master_close()
