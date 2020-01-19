@@ -239,5 +239,40 @@ for topic in coremessagetopics.execute( '''
 
 lt.thread_close(threadfile)
 
-lt.master_close()
+#
+# And then we retrieve the introduction posts
+#
 
+threadfile = lt.thread_open("intros", "Introduction Posts")
+searchindex = sqlite3.connect("data/core_search_index.db").cursor()
+
+for post in searchindex.execute(    '''
+                                        SELECT index_title, index_author, index_content, index_date_created
+                                        FROM core_search_index
+                                        WHERE index_title LIKE '%introdu%'
+                                        AND index_content LIKE '%atomwaffen%'
+                                        COLLATE NOCASE
+                                        ORDER BY index_date_created
+                                    '''):
+    title = post[0]
+    author = post[1]
+    content = lt.safe(post[2])
+    date = datetime.datetime.utcfromtimestamp(post[3]).strftime('%Y/%m/%d')
+
+    if title:
+        title = lt.safe(title)
+    else:
+        title = "untitled post"
+
+    if author != 0:
+        uname = coremembers.execute('SELECT name FROM core_members WHERE member_id = '+repr(author)).fetchall()
+        if uname:
+            author = lt.safe(uname[0][0])
+    else:
+        author = "\emph{unknown user}"
+
+    lt.thread_post(threadfile, title, author, date, lt.safe(content))
+
+lt.thread_close(threadfile)
+
+lt.master_close()
