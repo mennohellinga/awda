@@ -42,10 +42,6 @@ The software will create `awda.pdf`, containing the following information:
 
 ### High priority
 
-- [ ] implement proper unicode support. We need to be able to display latin, cyrillic and arabic text.
-- [ ] identify users who DM'ed about AWD
-- [ ] display AWD DM network
-
 ### Low priority
 
 - [ ] make histograms and scatterplots of AWD posts vs various other variables, such as join date, total posts
@@ -53,6 +49,8 @@ The software will create `awda.pdf`, containing the following information:
 ### Long term
 
 ### Completed
+- [x] identify users who DM'ed about AWD (2020-01-19)
+- [x] implement proper unicode support. We need to be able to display latin, cyrillic and arabic text (2019-12-03)
 - [x] create LaTeX code to display threads (2019-12-02)
 - [x] create Python code to retrieve threads (2019-12-02)
 - [x] separate data-gathering from table printing functionality (2019-12-01)
