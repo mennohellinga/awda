@@ -22,7 +22,6 @@ def safe_enc (string):
 
     string = string.replace('\u200b', '')
 
-    # this line removes all arabic text. New top priority: unicode that works
     p = re.compile('([^\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])([\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])')
     string = p.sub(r'\1\\textarab{\2', string)
 
