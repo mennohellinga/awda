@@ -56,8 +56,12 @@ import sqlite3
 import lt           # contains all functions that write LaTeX code
 import lt_strings   # contains all fixed LaTeX strings, formatted as py strings
 
-
 lt.master_open()
+
+###############################################################################
+#   Before we can study our database, we need to know what its tables look
+#   like. This part of the programme creates LaTeX code for tables which list
+#   the columns available in various tables of the Iron March database.
 
 def describetable_lt(connection, name):
     '''
@@ -67,7 +71,7 @@ def describetable_lt(connection, name):
         to <connection>. Prints a table containing each column's ID, name and
         type in a LaTeX longtab environment at lt.path+<name>+'.tex'
 
-        WARNING: does not sanitise its own input
+        WARNING: does not sanitise its input
     '''
 
     table = []
@@ -93,14 +97,15 @@ describetable_lt(conn, 'core_message_topics')
 conn = sqlite3.connect('data/core_search_index.db')
 describetable_lt(conn, 'core_search_index')
 
-#
-# Now, having described the main tables, we will compile a list of users who
-# have posted on the AWD.
+###############################################################################
+#   Now, having described the main tables, we will compile a list of users who
+#   have posted on the AWD.
 #
 
 awd_users_heading = [r'''member\_id''', "name", "joined", r'''\awd\ posts''', "total posts", r'''\% \awd\ posts''']
 awd_users = []
 
+# find the use IDs of all who have posted on the AWD
 searchindex = sqlite3.connect("data/core_search_index.db").cursor()
 for ID in searchindex.execute(  '''
                                     SELECT DISTINCT index_author
@@ -111,9 +116,12 @@ for ID in searchindex.execute(  '''
                                 '''):
     awd_users = awd_users + [[repr(ID[0])]]
 
-# index_author 0 is matched to a number of posts, but does not occur in core_members
+# index_author 0 is matched to a number of posts, but does not occur in
+# core_members
 awd_users = awd_users[1:]
 
+# for each ID, find the username, join date, number of posts mentioning AWD,
+# and total number of posts
 tmp = []
 coremembers = sqlite3.connect("data/core_members.db").cursor()
 for user in awd_users:
@@ -137,6 +145,7 @@ for user in awd_users:
 
 awd_users = tmp
 
+# turn awd_users into a printable list
 awd_users_printable = []
 for user in awd_users:
     user[1] = lt.safe(user[1])
@@ -150,9 +159,8 @@ for user in awd_users:
 
 lt.print_table("awd_posters", 'Users who posted about the AWD', "", "cllccc", awd_users_heading, awd_users_printable)
 
-#
-# Next, we list all forum posts on the AWD, ordered by date
-#
+###############################################################################
+#   List all forum posts on the AWD, ordered by date
 
 threadfile = lt.thread_open("awd_posts", 'Forum posts about the AWD')
 
@@ -185,9 +193,8 @@ for post in searchindex.execute(    '''
 
 lt.thread_close(threadfile)
 
-#
-# Now, we retrieve all the DM threads involving Odin
-#
+###############################################################################
+#   Retrieve all the DM threads involving Odin
 
 coremessagetopics = sqlite3.connect("data/core_message_topics.db").cursor()
 coremessages = sqlite3.connect("data/core_message_posts.db").cursor()
