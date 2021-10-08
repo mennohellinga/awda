@@ -16,15 +16,25 @@ path = path_ns+'/'
 
 def safe_enc (string):
     '''
-        returns <string>, converted to a LaTeX string with valid character encoding
-        removes all instances of U200B
+        returns <string>, converted to a LaTeX string with valid character encoding;
+        removes all instances of U200B;
+        does not escape special characters
     '''
 
     string = string.replace('\u200b', '')
 
+    # Regex looks for instances of a non-arabic character followed by an arabic
+    # character. Then, \textarabic{ is placed between them. That means every
+    # arabic word is in its own \textarabic{} block: this avoid problems with
+    # paragraph breaks within \textarabic{}
+    #
+    # \uxxxx represents the unicode character with the hexadecimal code xxxx.
+    # The ranges in the regex are arabic characters and presentation forms.
     p = re.compile('([^\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])([\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])')
     string = p.sub(r'\1\\textarab{\2', string)
 
+    # Similar to the substitution above: looks for instances of an arabic
+    # character followed by a non-arabic, and puts } between them
     p = re.compile('([\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])([^\u0600-\u06ff\u0750-\u07ff\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])')
     string = p.sub(r'\1}\2', string)
 
