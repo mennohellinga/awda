@@ -1,5 +1,5 @@
 # awda
-Course project for GE3V17043: Soldiers, Guerrillas, Terrorists. Queries the November 2019 Iron March database, to extract information about the Atomwaffen Division.
+Queries the November 2019 Iron March database, to extract information about the Atomwaffen Division.
 
 ## Introduction
 
@@ -40,13 +40,10 @@ The software will create `awda.pdf`, containing the following information:
 
 ## To do
 
-### High priority
-
-### Low priority
-
-- [ ] make histograms and scatterplots of AWD posts vs various other variables, such as join date, total posts
-
-### Long term
+- [ ] clearly comment all py files
+- [ ] all py functions should provide descriptive output to STDOUT for diagnostic purposes
+- [ ] update output description
+- [ ] `run_linux.sh` should move `LaTeX/master.pdf` to `awda.pdf`
 
 ### Completed
 - [x] identify users who DM'ed about AWD (2020-01-19)
