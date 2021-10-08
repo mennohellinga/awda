@@ -42,6 +42,7 @@ The software will create `awda.pdf`, containing the following information:
 
 - [ ] clearly comment all py files
 - [ ] all py functions should provide descriptive output to STDOUT for diagnostic purposes
+- [ ] remove references to SGT course
 - [ ] update output description
 - [ ] `run_linux.sh` should move `LaTeX/master.pdf` to `awda.pdf`
 
