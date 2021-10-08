@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 ###############################################################################
-# GE3V17043 --- Soldiers, Guerrillas, Terrorists
 # Data analysis for the Atomwaffen posts in the leaked Iron March database
 # M. Hellinga, 12 Nov. 2019 - ENDDATE
 #
@@ -9,6 +8,7 @@
 #   --- describe the tables relevant to researching the AWD organisational
 #       structure
 #   --- create a list of users who post on the AWD
+#   --- show all AWD-related posts in the database
 #   --- export its results in LaTeX
 #
 # INPUT:
@@ -27,8 +27,8 @@
 #   files will be created:
 #       --- master.tex: the coordinating, master document. This file brings all
 #               the others together.
-#       --- core_members_description.tex: describes the table containing all
-#               known Iron March members at the time of the snapshot.
+#       --- core_members.tex: describes the table containing all known Iron
+#               March members at the time of the snapshot.
 #       --- core_message_posts.tex: describes the table containing all known
 #               private messages on Iron March
 #       --- core_message_topics.tex: describes the table containing all known
@@ -36,9 +36,10 @@
 #       --- core_search_index.tex: describes the table containing all known
 #               forum posts on Iron March.
 #       --- awd_posters.tex: a table of all users who posted about the AWD
+#       --- UPDATE UPDATE UPDATE UPDATE
 #
 # OPERATING SYSTEM:
-#   This program has only been tested on a Linux system.
+#   This program has only been tested on an x64 Linux system.
 #
 # CAVEATS:
 #   This program will not work if it does not have rwx access to its working
@@ -52,8 +53,9 @@
 import datetime
 import sqlite3
 
-import lt
-import lt_strings
+import lt           # contains all functions that write LaTeX code
+import lt_strings   # contains all fixed LaTeX strings, formatted as py strings
+
 
 lt.master_open()
 
@@ -64,6 +66,8 @@ def describetable_lt(connection, name):
         Retrieves a list of columns from table <name>, in the database connected
         to <connection>. Prints a table containing each column's ID, name and
         type in a LaTeX longtab environment at lt.path+<name>+'.tex'
+
+        WARNING: does not sanitise its own input
     '''
 
     table = []
