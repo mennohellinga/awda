@@ -1,3 +1,5 @@
+TEST
+
 # awda
 Queries the November 2019 Iron March database, to extract information about the Atomwaffen Division.
 
